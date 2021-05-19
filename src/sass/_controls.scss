@@ -1,0 +1,50 @@
+.length-filter,
+.substr-filter,
+.input {
+  height: 65px;
+  margin-bottom: 20px;
+  border: none;
+  outline: none;
+  @extend %transition;
+}
+
+.checkbox,
+.label,
+.length-filter,
+.substr-filter {
+  cursor: pointer;
+}
+
+.input {
+  width: 100%;
+  min-width: 320px;
+  padding: 10px;
+  font-size: 2rem;
+  background: $transparent;
+  border-radius: 2px;
+  cursor: text;
+  &:hover {
+    background: $transparent-hover;
+  }
+}
+
+.label {
+  font-size: 2rem;
+  padding-left: 15px;
+}
+
+.length-filter,
+.substr-filter {
+  width: 175px;
+  min-width: 155px;
+  font-size: 1.5rem;
+  color: #fff;
+  background: $font-color;
+  border-radius: 3px;
+  text-transform: uppercase;
+  cursor: pointer;
+  &:hover {
+    color: $btn-color-hover;
+    background: $btn-bg-hover;
+  }
+}

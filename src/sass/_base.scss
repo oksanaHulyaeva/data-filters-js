@@ -1,0 +1,53 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  outline: none;
+  font-size: 10px;
+}
+
+.app {
+  width: 100vw;
+  min-width: 320px;
+  min-height: 100vh;
+  padding: 50px;
+  position: relative;
+  color: $font-color;
+  font-family: Calibri, Helvetica, sans-serif;
+  background: linear-gradient(-45deg, #D4BADD, #97DEE4);
+  @extend %flex-column-center;
+  .title {
+    font-size: 3.5rem;
+  }
+  .form {
+    width: 360px;
+    min-width: 320px;
+    margin-top: 50px;
+    @extend %flex-column-center;
+    .checkbox-container {
+      width: 100%;
+      height: 50px;
+      font-size: 2rem;
+    }
+    .button-container {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+    }
+    .output {
+      width: 100%;
+      min-height: 100px;
+      padding: 10px;
+      border-radius: 3px;
+      background: rgba(0, 0, 0, .1);
+      font-size: 1.5rem;
+      color: $font-color;
+      cursor: text;
+    }
+  }
+}
+
+
+
+
+

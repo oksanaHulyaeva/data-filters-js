@@ -1,0 +1,20 @@
+//CONSTANTS
+
+$font-color: #3F4156;
+$transparent: rgba(0, 0, 0, .2);
+$transparent-hover: rgba(0, 0, 0, .3);
+$btn-color-hover: #d4badd;
+$btn-bg-hover: #14171a;
+
+//PLACEHOLDERS
+
+%flex-column-center {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+%transition {
+  transition: all .3s ease-out;
+}
