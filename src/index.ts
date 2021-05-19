@@ -1,19 +1,37 @@
-import { isValidLength, isValidSubstring } from './utils/utils';
+import {
+  isValidLength,
+  isValidSubstring,
+  filterByLength,
+  filterBySubstr,
+} from './utils/utils';
 
 class App {
   isCaseSensitive: boolean;
-
-  isLoading: boolean;
 
   url: string;
 
   output: string;
 
-  constructor(isCaseSensitive: boolean) {
-    this.isCaseSensitive = isCaseSensitive;
-    this.isLoading = false;
+  data: string[];
+
+  constructor() {
+    this.isCaseSensitive = false;
     this.url = 'http://www.mrsoft.by/data.json';
     this.output = 'Output...';
+    this.data = [
+      'affenpinscher',
+      'whippet',
+      'african',
+      'irish wolfhound',
+      'pembroke',
+      'airedale',
+      'NEWFOUNDLAND',
+      'OTTERHOUND',
+      'PAPILLON',
+      'PEKINESE',
+      'SWISS MOUNTAIN',
+      'weimaraner',
+    ];
   }
 
   createStaticApp() {
@@ -69,31 +87,66 @@ class App {
     header.append(h1);
     app.append(header, form);
     document.body.append(app);
+
+    this.checkboxHandler(checkbox);
+    this.lengthFilterBtnHandler(lengthFilter);
+    this.substrFilterBtnHandler(substrFilter);
   }
 
-  async getData() {
-    try {
-      const response = await fetch(this.url, {
-        method: 'GET',
-        credentials: 'include',
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded',
-        },
-      });
-      // const data = await response.json();
-      console.log(response);
-      // console.log(data);
-    } catch (err) {
-      console.log('err');
-      console.log(err);
-    }
+  updateIsCaseSensitive(elem:HTMLInputElement) {
+    if (elem.checked) this.isCaseSensitive = true;
+    else this.isCaseSensitive = false;
+  }
+
+  updateOutputField() {
+    const output = document.querySelector('.output');
+    if (output) output.innerHTML = this.output;
+  }
+
+  checkboxHandler(elem: HTMLInputElement) {
+    elem.addEventListener('change', () => this.updateIsCaseSensitive(elem));
+  }
+
+  lengthFilterBtnHandler(elem: HTMLButtonElement) {
+    elem.addEventListener('click', (event:MouseEvent) => {
+      event.preventDefault();
+      const target = event.target as Element;
+      if (!target.classList.contains('length-filter')) return;
+
+      const { value } = <HTMLInputElement>document.querySelector('.input');
+      if (isValidLength(+value)) {
+        const result = filterByLength(this.data, +value);
+        this.output = result.length < 1 ? 'No result' : result;
+        this.updateOutputField();
+      } else {
+        this.output = 'Wrong input! Change and try again!';
+        this.updateOutputField();
+      }
+    });
+  }
+
+  substrFilterBtnHandler(elem: HTMLButtonElement) {
+    elem.addEventListener('click', (event:MouseEvent) => {
+      event.preventDefault();
+      const target = event.target as Element;
+      if (!target.classList.contains('substr-filter')) return;
+
+      const { value } = <HTMLInputElement>document.querySelector('.input');
+      if (isValidSubstring(value)) {
+        const result = filterBySubstr(this.data, value, this.isCaseSensitive);
+        this.output = result.length < 1 ? 'No result' : result;
+        this.updateOutputField();
+      } else {
+        this.output = 'Wrong input! Change and try again!';
+        this.updateOutputField();
+      }
+    });
   }
 
   init() {
     this.createStaticApp();
-    this.getData();
   }
 }
 
-const app = new App(false);
+const app = new App();
 app.init();

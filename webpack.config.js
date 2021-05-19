@@ -19,7 +19,7 @@ const esLintPlugin = (isDev) => isDev ? [] : [ new ESLintPlugin({ extensions: ['
 module.exports = ({ development }) => ({
   mode: development ? 'development' : 'production',
   devtool: development ? 'inline-source-map' : false,
-  entry: ['./src/index.ts', './src/style.scss'],
+  entry: ['./src/index.ts', './src/sass/style.scss'],
   output: {
     filename: '[name].[contenthash].js',
     path: path.resolve(__dirname, 'dist'),
@@ -46,7 +46,7 @@ module.exports = ({ development }) => ({
       },
       {
         test: /\.s[ac]ss$/i,
-        use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader']
+        use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader'],
       }
     ],
   },
